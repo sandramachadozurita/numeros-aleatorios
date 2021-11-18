@@ -1,0 +1,54 @@
+<html>  
+ <head>  
+ <title>Registro</title>  
+ <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+ <meta charset="utf-8">
+ </head>  
+ <body>  
+ <h3>Registro de usuario</h3>  
+  <br>
+ <br>
+ <form method="POST" action="./register/numero" onsubmit="return validacion();">
+ 	<table>
+ 	<tr>
+ 		<td><label>Nombre de Usuario</label></td>
+ 		<td><input type="text" name="nombre" id="nombre"></input></td>
+ 	</tr>
+ 	<tr>
+ 	    <td><label>Correo</label></td>
+ 		<td><input type="email" name="correo" id="correo"></input></td>
+ 	</tr>
+ 	<tr>
+ 	<td><label>Contraseña</label></td>
+ 		<td><input type="password" name="pass" id="pass"></input></td>
+ 	</tr>
+ </table>
+ 
+	  <br>
+	 <input type="submit" value="Registrarse">
+	  <br>
+ </form>
+
+
+	
+    <script>
+        function validacion(){
+        	var usuario = document.getElementById('nombre').value;
+        	var correo = document.getElementById('correo').value;
+        	var pass = document.getElementById('pass').value;
+        	if(usuario === ""){
+        		alert("Por favor inserte su nombre");
+        		return false;
+        	}
+        	if(correo === ""){
+    	    	alert("Por favor inserte su correo");	
+    	    	return false;
+    		}
+        	if(pass === ""){
+				alert("Por favor inserte su contrasena");	
+				return false;
+			}
+       	}
+    </script>
+ </body>  
+ </html> 

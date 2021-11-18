@@ -1,0 +1,40 @@
+<html>  
+ <head>  
+ <title>Numeros_aleatorios</title>  
+ <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+ <meta charset="utf-8">
+ </head>  
+ <body>    
+ <h1>Bienvenido: {{nomb}} a Numeros Aleatorios</h1>  
+ <br>
+ <label>El primer número aleatorio generado es:</label>
+  <label>{{numero}}</label>
+ <br>
+ <br>
+ <table>
+ 	<tr>
+ 		<td><input type="button" value="Media local" onclick="media_local()"></input></td>
+ 		<td><label id="media" style="display: none">{{value}}</label></td>
+ 		
+ 	
+ 	</tr>
+ 	<tr>
+ 		<td><input type="button" value="Media Internet" onclick="media_internet()"></input></td>
+ 		<td></td>
+ 	</tr>
+ </table>
+ <br>
+ <br>
+<a href = "/logout">Log out</a>
+
+    <script>
+        function media_local(){
+        	document.getElementById("media").style.display = "inherit";
+        }
+        function media_internet(){
+        	alert("Este boton se esta ejecutando");
+        }     
+       
+    </script>
+ </body>  
+ </html> 

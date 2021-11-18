@@ -1,0 +1,43 @@
+'''
+Created on 28/10/2021
+
+@author: Outros
+'''
+import requests
+import re
+from bs4 import BeautifulSoup
+result = requests.get("https://www.numeroalazar.com.ar/")
+#print(result.status_code)
+
+contenido = result.content
+
+soup = BeautifulSoup(contenido, 'lxml')
+
+list = []
+
+for div in soup.find_all("div"):
+    if(div.attrs['id'] == 'numeros_generados'):
+        list.append(div.text)
+       # print(list)
+        break
+    
+
+for elemento in list:
+    if re.search(r'[^0-9]', elemento):
+       print (elemento)
+    
+   
+    
+  # dividir=re.split(r'[\t]', elemento)
+#print (dividir)  
+     
+     
+     # print(re.findall(r'\d+', div)
+    #print (re.search('br', div))
+
+#print(list)
+
+
+
+
+
