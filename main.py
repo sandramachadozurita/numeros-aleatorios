@@ -19,9 +19,18 @@ import threading
 
 app = Flask(__name__)  
 
-
 app.secret_key = "ayush"
-bclient = BBT("API_BD", "SECRET_BD")
+
+
+_accesskey  = 'NhcLj3pytanhH0Gizy4c927Z'
+_secretkey  = '8DfMkZc2PqLHUebLEd2TAFjf9Zq65IEG'
+_hostname   = 'api.beebotte.com'
+bbt = BBT( _accesskey, _secretkey, hostname = _hostname)
+
+### Alternatively you can authenticate using the channel token
+# _token      = 'token_lnGng7n1SZ60ilv8'
+# bbt = BBT(token = _token, hostname = _hostname)
+
 
 # Method to store data in elasticsearch
 def send_data_to_es(_id, data):
@@ -105,6 +114,7 @@ def ejecucion_horaria(segundos):
             if(div.attrs['id'] == 'numeros_generados'):
                 x = re.findall('[0-9]{2}\.[0-9]{2}', div.text)
                 y = float (x[0])
+                bbt.write("numeros_aleatorios", "numeros", y)
                 send_data_to_es(id, data = {"numero": y})
                 id += 1
                 break   
@@ -113,25 +123,10 @@ def ejecucion_horaria(segundos):
 
 
 #--------------------------------------------------------------------------------------#
-
-# Aqui creamos el thread.
-# El primer argumento es el nombre de la funcion que contiene el codigo.
-# El segundo argumento es una lista de argumentos para esa funcion .
-# Ojo con la coma al final!
-    
-    
 deleteIndex("numeros")
 hilo = threading.Thread(target=ejecucion_horaria, args=(120,))
 hilo.start()   # Iniciamos la ejecuci�n del thread,
 
-
-#AQUÍ COMENZAMOS CON BEEBOTTE
-bclient.write('dev','res1','y')
-bclient.write('dev','res2','media')
-bclient.publish('dev','res1','y' )
-bclient.publish('dev','res2','media' )
-records = bclient.read('dev', 'res1', limit = 5)
-records = bclient.read('dev', 'res2', limit = 5)
 
 
 @app.route('/')
@@ -147,7 +142,7 @@ def register():
 def Numeros_aleatorios(): 
     if request.method == "POST":  
         session['nombre']=request.form['nombre'] 
-    
+
     if 'nombre' in session: 
         passwd = request.form['pass']
         encode_pass = passwd.encode()
@@ -155,8 +150,9 @@ def Numeros_aleatorios():
         nombre = session['nombre'] 
         correo = request.form['correo']
         send_data(data = {"usuario": nombre, "correo": correo, "password": clave_cifrada.decode() })
-    
-        return render_template("numero.html", numero=get_last_number(), nomb=nombre, value = get_media())    
+        records = bbt.read("numeros_aleatorios", "numeros")
+        # print("Esto se ejecutara cada %d" % records )
+        return render_template("numero.html", numero=get_last_number(), nomb=nombre, value = get_media(), r=records)    
     else:  
         return '<p>Por favor registrate primero</p>'
 
@@ -173,3 +169,9 @@ def logout():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
+
+
+
+
+
+
