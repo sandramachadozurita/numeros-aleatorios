@@ -13,32 +13,21 @@
  <br>
  <table>
  	<tr>
- 		<td><input type="button" value="Media local" onclick="media_local()"></input></td>
- 		<td><label id="media" style="display: none">{{value}}</label></td>
+ 		<form method="get" action="/promedio">
+		 	<td><input type="submit" value="Media Local"></input></td>
+ 			<td><label id="mediaL">{{prom}}</label></td>
+ 		</form>
  	</tr>
  	<tr>
- 		<td><input type="button" value="Media Internet" onclick="media_internet()"></input></td>
- 		<td></td>
+ 		<form method="get" action="/promedio-internet">
+		 	<td><input type="submit" value="Media Internet"></input></td>
+ 			<td><label id="mediaI">{{promedioInternet}}</label></td>
+ 		</form>
  	</tr>
  </table>
  <br>
- <br>
- 
- <label id="aa">{{r}}</label>
- 
+
 <a href = "/logout">Log out</a>
 
-    <script>
-        function media_local(){
-        	document.getElementById("media").style.display = "inherit";
-        }
-        function media_internet(){
-        	alert("Este boton se esta ejecutando");
-        }     
-        function prueba(){
-        	alert("Este boton se esta ejecutando");
-        } 
-       
-    </script>
  </body>  
  </html> 
